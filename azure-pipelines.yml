@@ -5,11 +5,18 @@ pool:
   name: Default
 
 steps:
-- script: terraform init
-  displayName: Terraform Init
+- checkout: self
 
-- script: terraform plan
-  displayName: Terraform Plan
+- script: |
+    echo ===== ROOT FILES =====
+    dir
 
-- script: terraform apply -auto-approve
-  displayName: Terraform Apply
+    echo ===== ALL PACKAGE.JSON FILES =====
+    dir /s package.json
+
+    echo ===== ALL VITE FILES =====
+    dir /s vite.config.*
+
+    echo ===== ALL SRC FOLDERS =====
+    dir /s src
+  displayName: Debug Repository Structure
